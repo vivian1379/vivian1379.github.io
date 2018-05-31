@@ -1,27 +1,74 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>你好，GitHub</title>
-  </head>
-  <body>
-    <h1>覺得厲害</h1>
-  </body>
+<head>
+	 <!-- Bootstrap 4 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!--  Bootstrap 4 Jquery -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<!-- Google Api -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<style>
+		h1, h2, h3, h4, h5, label{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row justify-content-center text-center">
+			<div class="col-6 mt-5">
+				<h2>7-11暗黑銷售小魚埔里分店查詢系統</h2>
+				<form>
+				  <div class="form-group  mt-4">
+				    <h4 class="mb-4	">姓名</h4>
+				    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" id="txt_numberInput">
+				  </div>
+				  <div class="form-check">
+				    <input type="checkbox" class="form-check-input" id="chk_status">
+				    <label class="form-check-label mb-3">只顯示到貨未取商品</label>
+				  </div>
+				  <button type="button" class="btn btn-info mr-2" onclick="btn_Search()">查詢</button>
+				  <button type="button" class="btn btn-danger ml-2" onclick="btn_clear()">清除</button>
+				</form>	
+				<hr>
+				<div id="output_item"></div>
+			</div>
+		</div>
+	</div>
+
+
+    <script type="text/javascript">
+		function btn_clear(){
+			document.getElementById("output_item").innerHTML = "";
+			document.getElementById("txt_numberInput").checked = ""
+		}
+	
+        function btn_Search(){			
+			document.getElementById("output_item").innerHTML = "";
+			var o_name = "";
+			
+            $.get("https://script.google.com/macros/s/AKfycbxq_Q4QNBaU2bm6kGj7y-KjIE8v2EZBDlkX9yjEAhMXWruDxVLl/exec", {
+                        "number": document.getElementById("txt_numberInput").value,
+						"status": document.getElementById("chk_status").checked
+                    },
+                    function (data) {
+						console.log(data);
+						O_name = "<table style='border:3px #cccccc solid;' cellpadding='10' border='1'>" + 
+								 "   <tr>" +
+								 "     <td>姓名</td>" +
+								 "     <td>商品名稱</td>" +
+								 "     <td>詳細資料</td>" +
+								 "     <td>數量</td>" +
+								 "     <td>金額</td>" +
+								 "     <td>商品狀態</td>" +
+								 "   </tr>" +
+								  data +
+								 "</table>";
+						document.getElementById("output_item").innerHTML = O_name;
+                    });
+        }
+    </script>
+</body>
 </html>
-$ git add index.html
-
-$ git commit -m "add index"
-[master (root-commit) 80450b2] add index
- 1 file changed, 10 insertions(+)
- create mode 100644 index.html
- $ git remote add origin https://github.com/eddiekao/eddiekao.github.io.git
-
-$ git push -u origin master
-Counting objects: 3, done.
-Delta compression using up to 4 threads.
-Compressing objects: 100% (2/2), done.
-Writing objects: 100% (3/3), 327 bytes | 327.00 KiB/s, done.
-Total 3 (delta 0), reused 0 (delta 0)
-To https://github.com/eddiekao/eddiekao.github.io.git
- * [new branch]      master -> master
-Branch master set up to track remote branch master from origin.
